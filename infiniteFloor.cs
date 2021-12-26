@@ -5,21 +5,27 @@ using UnityEngine;
 public class infiniteFloor : MonoBehaviour
 {
     public Collider bound;
+    public bool CanTurnR = false;
+    public bool CanTurnL = false;
+
+
+
+
 
     // Update is called once per frame
     void Update()
     {
-
-        
+       
     }
+
     void OnTriggerEnter(Collider other)
     {
-        if (other.transform.name == "myViking") ;
+
+        if (other.transform.name == "myViking") 
         {
             Copy();
         }
     }
-
 
 
     void Copy()
@@ -33,7 +39,6 @@ public class infiniteFloor : MonoBehaviour
     void WaitAndDestroy()
     {
         Destroy(gameObject);
-
     }
 
 
