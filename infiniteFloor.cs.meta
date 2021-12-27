@@ -3,7 +3,13 @@ guid: 30bba1c23b7013f408ec2ae349bccee5
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bound: {instanceID: 0}
+  - coin: {fileID: 3569950503118192175, guid: c4b2c2a1e5bce8542a2c133d4539438e, type: 3}
+  - bar: {fileID: 1106788981086152960, guid: cb4738d5260737f4195d555f8a73aa54, type: 3}
+  - stone: {fileID: 100000, guid: 6e101358d9d9e5548976c460d6e1d06d, type: 3}
+  - cornerR: {fileID: 8071067050805984351, guid: 9b7a274c284491d4198e0902de587631, type: 3}
+  - cornerL: {fileID: 4689669988020545018, guid: 19274f36db4142344b3de8e09ffbfd2b, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class VikingMove : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class VikingMove : MonoBehaviour
     bool run = false;
     bool START = false;
     bool canTurnR = false;
+    bool canTurnL = false;
     Quaternion target;
 
 
@@ -34,6 +37,13 @@ public class VikingMove : MonoBehaviour
         Move();
         Rotate();
 
+
+        if(transform.position.y<-10)
+        {
+            SceneManager.LoadScene(2);
+
+        }
+
         animator.SetBool("Run", run);
     }
 
@@ -51,7 +61,14 @@ public class VikingMove : MonoBehaviour
             run = true;
             if (Input.GetKey(KeyCode.A))
             {
-                transform.localPosition += movingSpeed * Time.deltaTime * (-transform.right); run = true;
+                if (canTurnL)
+                {
+                    target = Quaternion.LookRotation(-transform.right);
+                    canTurnL = false;
+
+                }
+                else
+                    transform.localPosition += movingSpeed * Time.deltaTime * (-transform.right); run = true;
             }
             else if (Input.GetKey(KeyCode.D))
             {
@@ -60,6 +77,7 @@ public class VikingMove : MonoBehaviour
                     target = Quaternion.LookRotation(transform.right);
                     canTurnR = false;
                 }
+
                 else
                     transform.localPosition += movingSpeed * Time.deltaTime * transform.right; run = true;
             }
@@ -100,6 +118,10 @@ public class VikingMove : MonoBehaviour
         {
             canTurnR = true;
         }
+        else if(other.transform.name == "cornerTurnL")
+        {
+            canTurnL = true;
+        }
     }
 
 
@@ -109,6 +131,11 @@ public class VikingMove : MonoBehaviour
         if (other.transform.name == "cornerTurnR")
         {
             canTurnR = false;
+            Debug.Log("Enter");
+        }
+        else if (other.transform.name == "cornerTurnL")
+        {
+            canTurnL = false;
         }
     }
 

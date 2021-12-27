@@ -5,14 +5,15 @@ using UnityEngine;
 public class infiniteFloor : MonoBehaviour
 {
     public Collider bound;
-    public bool CanTurnR = false;
-    public bool CanTurnL = false;
+    int floordecide = 0;
 
 
 
 
 
-    // Update is called once per frame
+    public GameObject cornerR;
+    public GameObject cornerL;
+
     void Update()
     {
        
@@ -20,8 +21,8 @@ public class infiniteFloor : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-
-        if (other.transform.name == "myViking") 
+ 
+        if (other.transform.name == "viking") 
         {
             Copy();
         }
@@ -30,10 +31,53 @@ public class infiniteFloor : MonoBehaviour
 
     void Copy()
     {
-        float length = bound.bounds.extents.z*2;
-        Vector3 pos=transform.position+ length*Vector3.forward;
-        Instantiate(gameObject , pos , transform.rotation);
-        Invoke("WaitAndDestroy", 3f);
+           floordecide = Random.Range(0, 3);
+ 
+           
+           float length;
+           Vector3 pos;
+           Quaternion rot;
+
+
+          if (floordecide == 0)
+           {
+                   length = bound.bounds.extents.z * 2;
+                   pos = transform.position + length * transform.forward;
+                   Instantiate(gameObject, pos, transform.rotation);
+   
+
+
+
+
+        }
+           else if (floordecide == 1)
+           {
+               length = bound.bounds.extents.x*2+bound.bounds.extents.z+ bound.bounds.extents.z / 3;
+               pos = transform.position + length * transform.forward;
+               Instantiate(cornerR, pos, transform.rotation);
+
+               rot = Quaternion.LookRotation(transform.right);
+               length =bound.bounds.extents.z;
+
+               pos = pos + length * transform.right;
+               Instantiate(gameObject,pos, rot);
+
+        }
+           else
+           {
+               length = bound.bounds.extents.x*3 + bound.bounds.extents.z;
+               pos = transform.position + length * transform.forward;
+               Instantiate(cornerL, pos, transform.rotation);
+
+               rot = Quaternion.LookRotation(transform.right*(-1));
+               length =bound.bounds.extents.z;
+
+               pos = pos + length * transform.right*(-1);
+               Instantiate(gameObject, pos,rot);
+        } 
+
+
+        Invoke("WaitAndDestroy", 7f);
     }
 
     void WaitAndDestroy()
